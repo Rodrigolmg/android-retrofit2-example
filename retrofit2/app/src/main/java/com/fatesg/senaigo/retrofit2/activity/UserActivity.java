@@ -51,21 +51,21 @@ public class UserActivity extends AppCompatActivity {
 
         user = (User) spnUser.getSelectedItem();
 
-        mUsers.put("id", String.valueOf(user.getId()));
-        mUsers.put("name", user.getName());
-        mUsers.put("username", user.getUsername());
-        mUsers.put("email", user.getEmail());
-        mUsers.put("phone", user.getPhone());
-        mUsers.put("website", user.getWebsite());
-        mUsers.put("street", user.getAddress().getStreet());
-        mUsers.put("suite", user.getAddress().getSuite());
-        mUsers.put("city", user.getAddress().getCity());
-        mUsers.put("zipcode", user.getAddress().getZipcode());
-        mUsers.put("lat", user.getAddress().getGeo().getLat());
-        mUsers.put("lng", user.getAddress().getGeo().getLng());
-        mUsers.put("cName", user.getCompany().getName());
-        mUsers.put("catchPhrase", user.getCompany().getCatchPhrase());
-        mUsers.put("bs", user.getCompany().getBs());
+        mUsers.put("id", "Id: " + String.valueOf(user.getId()));
+        mUsers.put("name", "Name: " + user.getName());
+        mUsers.put("username", "Username: " + user.getUsername());
+        mUsers.put("email", "Email: " + user.getEmail());
+        mUsers.put("phone", "Phone: " + user.getPhone());
+        mUsers.put("website", "Website: " + user.getWebsite());
+        mUsers.put("street", "Street: " + user.getAddress().getStreet());
+        mUsers.put("suite", "Suite: " + user.getAddress().getSuite());
+        mUsers.put("city", "City: " + user.getAddress().getCity());
+        mUsers.put("zipcode", "Zipcode: " + user.getAddress().getZipcode());
+        mUsers.put("lat", "Latitude: " + user.getAddress().getGeo().getLat());
+        mUsers.put("lng", "Longitude: " + user.getAddress().getGeo().getLng());
+        mUsers.put("cName", "Company name: " + user.getCompany().getName());
+        mUsers.put("catchPhrase", "Catch Phrase: " + user.getCompany().getCatchPhrase());
+        mUsers.put("bs", "BS: " + user.getCompany().getBs());
 
         users.add(mUsers);
 
