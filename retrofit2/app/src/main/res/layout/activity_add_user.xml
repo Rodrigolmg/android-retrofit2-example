@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,247 +8,83 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/lblTitleUser"
+            android:id="@+id/lblUserId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="@string/label_title_user"
+            android:text="@string/label_user_id"
             android:textColor="@color/textViewColor"
-            android:gravity="center"/>
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
-            android:id="@+id/lblUserName"
+            android:id="@+id/lblUserpostId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="@string/label_user_name"
-            android:textColor="@color/textViewColor"/>
-        <EditText
-            android:id="@+id/txtUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:text="@string/label_userpost_id"
+            android:textColor="@color/textViewColor"
+            android:layout_marginBottom="10dp"/>
+
         <TextView
-            android:id="@+id/lblUsername"
+            android:id="@+id/lblTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="@string/label_username"
+            android:text="@string/label_title"
             android:textColor="@color/textViewColor"/>
+
         <EditText
-            android:id="@+id/txtUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/lblEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_email"
-            android:textColor="@color/textViewColor"/>
-        <EditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
-        <TextView
-            android:id="@+id/lblPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_phone"
-            android:textColor="@color/textViewColor"/>
 
-
-        <EditText
-            android:id="@+id/txtPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"/>
-
-        <TextView
-            android:id="@+id/lblWebsite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_website"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtWebsite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Space
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/lblTitleAddress"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_title_address"
-            android:textColor="@color/textViewColor"
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
+            <Button
+                android:id="@+id/btnAddUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_add_user"
+                android:onClick="addUser"
+                android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/lblStreet"
+            <Button
+                android:id="@+id/btnDeleteUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_del_user"
+                android:onClick="deleteUser"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/btnClearFields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_clear_fields"
+                android:onClick="clearFields"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+
+        <ListView
+            android:id="@+id/lstUserPosts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_street"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtStreet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblSuite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_suite"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtSuite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_city"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtCity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblZipcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_zipcode"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtZipcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblLat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_lat"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtLat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblLng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_lng"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtLng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/lblTitleComapny"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_title_company"
-            android:textColor="@color/textViewColor"
-            android:gravity="center"/>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-
-        <TextView
-            android:id="@+id/lblCompName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_comp_name"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtCompName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblCatchPhrase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_catch_phrase"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtCatchPhrase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/lblBs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/label_bs"
-            android:textColor="@color/textViewColor"/>
-
-        <EditText
-            android:id="@+id/txtBs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-
-        <Button
-            android:id="@+id/btnAddUser"
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
-            android:text="@string/btn_add_user"
-            android:onClick="addUser"
-            android:layout_gravity="center"/>
+            android:layout_height="wrap_content"/>
 
 
 
     </LinearLayout>
 
-</ScrollView>
+</android.support.constraint.ConstraintLayout >

@@ -88,7 +88,7 @@ public class ShowUserActivity extends AppCompatActivity {
     private void getResource(){
         final ArrayList<User> spnUsers = new ArrayList<>();
 
-        userResource = APIClient.getClient().create(UserResource.class);
+        userResource = APIClient.getClientUsers().create(UserResource.class);
 
         Call<List<User>> get = userResource.get();
 

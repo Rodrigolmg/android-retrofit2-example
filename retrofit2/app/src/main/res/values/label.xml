@@ -2,32 +2,17 @@
 <resources>
     <!-- ******** Labels to activity_add_user ******** -->
 
-    <!-- TextView title label -->
-    <string name="label_title_user">User informations</string>
-    <string name="label_title_address">Address</string>
-    <string name="label_title_company">Company</string>
+
 
     <!-- User personal informations labels -->
-    <string name="label_user_name">Name</string>
-    <string name="label_username">Username</string>
-    <string name="label_email">Email</string>
-    <string name="label_phone">Phone</string>
-    <string name="label_website">Website</string>
-
-    <!-- User address informations labels -->
-    <string name="label_street">Street</string>
-    <string name="label_suite">Suite</string>
-    <string name="label_city">City</string>
-    <string name="label_zipcode">Zipcode</string>
-    <string name="label_lat">Latitude</string>
-    <string name="label_lng">Longitude</string>
-
-    <!-- User company informations label -->
-    <string name="label_comp_name">Company name</string>
-    <string name="label_catch_phrase">Catch Phrase</string>
-    <string name="label_bs">BS</string>
+    <string name="label_user_id">User ID:</string>
+    <string name="label_userpost_id">ID:</string>
+    <string name="label_title">Title</string>
+    <string name="label_body">Body</string>
 
     <string name="btn_add_user">Add</string>
+    <string name="btn_del_user">Delete</string>
+    <string name="btn_clear_fields">Clear</string>
 
     <!-- ******** Labels to activity_add_user END ******** -->
 
