@@ -39,7 +39,7 @@ public class UserPostAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = act.getLayoutInflater()
                 .inflate(R.layout.listview_item_userpost, parent, false);
-        UserPost userPost= listUsersPost.get(position);
+        UserPost userPost = listUsersPost.get(position);
 
         TextView txtUserId = view.findViewById(R.id.userId);
         TextView txtId = view.findViewById(R.id.id);

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="@string/label_user_id"
-            android:textColor="@color/textViewColor"
+            android:textColor="@color/text_view_color"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"/>
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="@string/label_userpost_id"
-            android:textColor="@color/textViewColor"
+            android:textColor="@color/text_view_color"
             android:layout_marginBottom="10dp"/>
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="@string/label_title"
-            android:textColor="@color/textViewColor"/>
+            android:textColor="@color/text_view_color"/>
 
         <EditText
             android:id="@+id/txtTitle"
@@ -80,8 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/stc_edit"
-                android:shadowColor="@color/textViewColor"
-                android:onClick="disableDelete"/>
+                android:onClick="disableDelete"
+                android:layout_marginStart="3dp"/>
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -63,6 +64,8 @@ public class AddUserActivity extends AppCompatActivity {
 
         //ListView onClick to delete the selected user
         selectUserPost();
+
+        switchState();
     }
 
     public void addUser(View view) {
@@ -71,29 +74,32 @@ public class AddUserActivity extends AppCompatActivity {
 
 
         if(!txtTitle.getText().toString().isEmpty()) {
-            if(swtEnableEdit.isActivated()){
+            userPostAdd.setUserId(Integer.parseInt(lblUserId.getText().toString()
+                    .replace("User ID: ", "")));
+            userPostAdd.setId(Integer.parseInt(lblUserpostId.getText().toString()
+                    .replace("ID: ", "")));
+            userPostAdd.setTitle(txtTitle.getText().toString());
 
-                userPostAdd.setUserId(Integer.parseInt(lblUserId.getText().toString()
-                        .replace("User ID: ", "")));
-                userPostAdd.setId(Integer.parseInt(lblUserpostId.getText().toString()
-                        .replace("ID: ", "")));
-                userPostAdd.setTitle(txtTitle.getText().toString());
+            if(swtEnableEdit.isChecked()){
 
-                if(listUserPost.get(userPostAdd.getId()) != null){
-                    Call<UserPost> put = userPostResource.put(userPostAdd, userPostAdd.getId());
-                    put.enqueue(new Callback<UserPost>() {
-                        @Override
-                        public void onResponse(Call<UserPost> call, Response<UserPost> response) {
+                Call<UserPost> put = userPostResource.put(userPostAdd, userPostAdd.getId());
 
-                        }
+                put.enqueue(new Callback<UserPost>() {
+                    @Override
+                    public void onResponse(Call<UserPost> call, Response<UserPost> response) {
+                        UserPost up = response.body();
+                        listUserPost.set(lstPosition, up);
+                        clearFields();
+                        setUserPostAdapter();
+                    }
 
-                        @Override
-                        public void onFailure(Call<UserPost> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<UserPost> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
 
-                        }
-                    });
-                }
-
+            }else{
                 Call<UserPost> post = userPostResource.post(userPostAdd);
 
                 post.enqueue(new Callback<UserPost>() {
@@ -151,8 +157,20 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     public void disableDelete(View view) {
-        btnDeleteUser.setEnabled(false);
-        txtTitle.setEnabled(true);
+
+        if(!txtTitle.getText().toString().isEmpty()) {
+            if (swtEnableEdit.isChecked() || swtEnableEdit.isPressed()) {
+                btnDeleteUser.setEnabled(false);
+                txtTitle.setEnabled(true);
+            } else {
+                btnDeleteUser.setEnabled(true);
+                txtTitle.setEnabled(false);
+            }
+        } else{
+            Toast.makeText(this, String.format("\"%s\" field cannot be empty!",
+                    lblTitle.getText()), Toast.LENGTH_LONG).show();
+            swtEnableEdit.setChecked(false);
+        }
     }
 
     public void clearFields(View view) {
@@ -216,9 +234,10 @@ public class AddUserActivity extends AppCompatActivity {
     }
 
     private void clearFields(){
-        txtTitle.setInputType(1);
         txtTitle.setText("");
         txtTitle.setEnabled(true);
+        swtEnableEdit.setChecked(false);
+        btnDeleteUser.setEnabled(true);
         setLabelId();
     }
 
@@ -246,6 +265,26 @@ public class AddUserActivity extends AppCompatActivity {
         });
     }
 
+    private void switchState(){
+        swtEnableEdit.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!txtTitle.getText().toString().isEmpty()) {
+                    if (isChecked) {
+                        btnDeleteUser.setEnabled(false);
+                        txtTitle.setEnabled(true);
+                    } else {
+                        btnDeleteUser.setEnabled(true);
+                        txtTitle.setEnabled(false);
+                    }
+                } else {
+                    Toast.makeText(AddUserActivity.this, String.format("\"%s\" field cannot be empty!",
+                            lblTitle.getText()), Toast.LENGTH_LONG).show();
+                    swtEnableEdit.setChecked(false);
+                }
+            }
+        });
+    }
 
 
 }
