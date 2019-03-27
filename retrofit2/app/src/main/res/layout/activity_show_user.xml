@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.UserActivity">
+    tools:context=".activity.ShowUserActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,9 @@
             android:id="@+id/lblUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_users" />
+            android:textSize="15sp"
+            android:text="@string/label_users"
+            android:textColor="@color/textViewColor"/>
 
         <Spinner
             android:id="@+id/spnUser"
@@ -32,7 +34,7 @@
             android:id="@+id/btnShowSelectedUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_show"
+            android:text="@string/btn_show_user"
             android:onClick="showUser"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

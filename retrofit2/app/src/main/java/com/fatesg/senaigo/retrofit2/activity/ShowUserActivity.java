@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserActivity extends AppCompatActivity {
+public class ShowUserActivity extends AppCompatActivity {
 
     protected Spinner spnUser;
     protected ListView lstUser;
@@ -38,7 +38,7 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_show_user);
         initFields();
         getResource();
     }
@@ -88,7 +88,7 @@ public class UserActivity extends AppCompatActivity {
     private void getResource(){
         final ArrayList<User> spnUsers = new ArrayList<>();
 
-        userResource = APIClient.getClient().create(UserResource.class);
+        userResource = APIClient.getClientUsers().create(UserResource.class);
 
         Call<List<User>> get = userResource.get();
 
