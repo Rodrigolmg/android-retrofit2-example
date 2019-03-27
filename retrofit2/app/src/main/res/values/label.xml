@@ -13,6 +13,7 @@
     <string name="btn_add_user">Add</string>
     <string name="btn_del_user">Delete</string>
     <string name="btn_clear_fields">Clear</string>
+    <string name="stc_edit">Edit</string>
 
     <!-- ******** Labels to activity_add_user END ******** -->
 

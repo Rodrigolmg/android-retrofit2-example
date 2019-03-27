@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +17,7 @@ import com.fatesg.senaigo.retrofit2.bootstrap.APIClient;
 import com.fatesg.senaigo.retrofit2.model.UserPost;
 import com.fatesg.senaigo.retrofit2.resource.UserPostResource;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,14 +32,18 @@ public class AddUserActivity extends AppCompatActivity {
     protected TextView lblUserpostId;
     protected TextView lblTitle;
 
+    protected Button btnDeleteUser;
+    protected Switch swtEnableEdit;
+
     protected ListView lstUserPosts;
 
     protected UserPostResource userPostResource;
     protected UserPostAdapter userPostAdapter;
 
-    protected List<UserPost> listUserPost = new ArrayList<>();
+    protected List<UserPost> listUserPost = new LinkedList<>();
 
     protected UserPost up;
+    protected Integer lstPosition;
 
 
 
@@ -53,8 +59,7 @@ public class AddUserActivity extends AppCompatActivity {
         getResource();
 
         //Set adapter
-
-        setUserPostadapter();
+        setUserPostAdapter();
 
         //ListView onClick to delete the selected user
         selectUserPost();
@@ -64,29 +69,48 @@ public class AddUserActivity extends AppCompatActivity {
 
         UserPost userPostAdd = new UserPost();
 
+
         if(!txtTitle.getText().toString().isEmpty()) {
-            userPostAdd.setUserId(Integer.parseInt(lblUserId.getText().toString()
-                    .replace("User ID: ", "")));
-            userPostAdd.setId(Integer.parseInt(lblUserpostId.getText().toString()
-                    .replace("ID: ", "")));
-            userPostAdd.setTitle(txtTitle.getText().toString());
+            if(swtEnableEdit.isActivated()){
 
-            Call<UserPost> post = userPostResource.post(userPostAdd);
+                userPostAdd.setUserId(Integer.parseInt(lblUserId.getText().toString()
+                        .replace("User ID: ", "")));
+                userPostAdd.setId(Integer.parseInt(lblUserpostId.getText().toString()
+                        .replace("ID: ", "")));
+                userPostAdd.setTitle(txtTitle.getText().toString());
 
-            post.enqueue(new Callback<UserPost>() {
-                @Override
-                public void onResponse(Call<UserPost> call, Response<UserPost> response) {
-                    UserPost up = response.body();
-                    listUserPost.add(up);
-                    setUserPostadapter();
-                    clearFields();
+                if(listUserPost.get(userPostAdd.getId()) != null){
+                    Call<UserPost> put = userPostResource.put(userPostAdd, userPostAdd.getId());
+                    put.enqueue(new Callback<UserPost>() {
+                        @Override
+                        public void onResponse(Call<UserPost> call, Response<UserPost> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<UserPost> call, Throwable t) {
+
+                        }
+                    });
                 }
 
-                @Override
-                public void onFailure(Call<UserPost> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show();
-                }
-            });
+                Call<UserPost> post = userPostResource.post(userPostAdd);
+
+                post.enqueue(new Callback<UserPost>() {
+                    @Override
+                    public void onResponse(Call<UserPost> call, Response<UserPost> response) {
+                        UserPost up = response.body();
+                        listUserPost.add(up);
+                        setUserPostAdapter();
+                        clearFields();
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserPost> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         } else {
             Toast.makeText(this, String.format("\"%s\" field cannot be empty!",
                     lblTitle.getText()), Toast.LENGTH_LONG).show();
@@ -110,8 +134,8 @@ public class AddUserActivity extends AppCompatActivity {
             delete.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    listUserPost.remove(userPostDel);
-                    setUserPostadapter();
+                    listUserPost.remove(lstPosition.intValue());
+                    setUserPostAdapter();
                     clearFields();
                 }
 
@@ -126,6 +150,11 @@ public class AddUserActivity extends AppCompatActivity {
         }
     }
 
+    public void disableDelete(View view) {
+        btnDeleteUser.setEnabled(false);
+        txtTitle.setEnabled(true);
+    }
+
     public void clearFields(View view) {
         clearFields();
     }
@@ -134,11 +163,13 @@ public class AddUserActivity extends AppCompatActivity {
         lblTitle = findViewById(R.id.lblTitle);
         lblUserId = findViewById(R.id.lblUserId);
         lblUserpostId = findViewById(R.id.lblUserpostId);
+        btnDeleteUser = findViewById(R.id.btnDeleteUser);
+        swtEnableEdit = findViewById(R.id.swtEnableEdit);
         txtTitle = findViewById(R.id.txtTitle);
         lstUserPosts = findViewById(R.id.lstUserPosts);
     }
 
-    private void getResource(){
+    public void getResource(){
 
         userPostResource = APIClient.getClientPost().create(UserPostResource.class);
 
@@ -150,7 +181,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 listUserPost = response.body();
 
-                setUserPostadapter();
+                setUserPostAdapter();
                 up = (UserPost) userPostAdapter
                         .getItem(userPostAdapter.getCount() - 1);
 
@@ -164,7 +195,7 @@ public class AddUserActivity extends AppCompatActivity {
         });
     }
 
-    private void setUserPostadapter(){
+    private void setUserPostAdapter(){
         userPostAdapter = new UserPostAdapter(listUserPost, this);
         lstUserPosts.setAdapter(userPostAdapter);
     }
@@ -187,8 +218,7 @@ public class AddUserActivity extends AppCompatActivity {
     private void clearFields(){
         txtTitle.setInputType(1);
         txtTitle.setText("");
-        txtTitle.setFocusable(true);
-        txtTitle.setFocusableInTouchMode(true);
+        txtTitle.setEnabled(true);
         setLabelId();
     }
 
@@ -197,6 +227,7 @@ public class AddUserActivity extends AppCompatActivity {
         lstUserPosts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lstPosition = position;
                 lblUserId.setText(R.string.label_user_id);
                 lblUserpostId.setText(R.string.label_userpost_id);
                 txtTitle.setText("");
@@ -210,10 +241,11 @@ public class AddUserActivity extends AppCompatActivity {
                         .concat(" ").concat(String.valueOf(userPostSelected.getId())));
 
                 txtTitle.setText(userPostSelected.getTitle());
-                txtTitle.setInputType(0);
-                txtTitle.setFocusable(false);
-                txtTitle.setFocusableInTouchMode(false);
+                txtTitle.setEnabled(false);
             }
         });
     }
+
+
+
 }
