@@ -80,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/stc_edit"
-                android:onClick="disableDelete"
                 android:layout_marginStart="3dp"/>
 
         </LinearLayout>

@@ -2,6 +2,9 @@ package com.fatesg.senaigo.retrofit2.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -65,6 +68,7 @@ public class AddUserActivity extends AppCompatActivity {
         //ListView onClick to delete the selected user
         selectUserPost();
 
+        //Doing slide and click event on switch
         switchState();
     }
 
@@ -156,23 +160,6 @@ public class AddUserActivity extends AppCompatActivity {
         }
     }
 
-    public void disableDelete(View view) {
-
-        if(!txtTitle.getText().toString().isEmpty()) {
-            if (swtEnableEdit.isChecked() || swtEnableEdit.isPressed()) {
-                btnDeleteUser.setEnabled(false);
-                txtTitle.setEnabled(true);
-            } else {
-                btnDeleteUser.setEnabled(true);
-                txtTitle.setEnabled(false);
-            }
-        } else{
-            Toast.makeText(this, String.format("\"%s\" field cannot be empty!",
-                    lblTitle.getText()), Toast.LENGTH_LONG).show();
-            swtEnableEdit.setChecked(false);
-        }
-    }
-
     public void clearFields(View view) {
         clearFields();
     }
@@ -261,6 +248,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 txtTitle.setText(userPostSelected.getTitle());
                 txtTitle.setEnabled(false);
+                swtEnableEdit.setChecked(false);
             }
         });
     }
@@ -270,10 +258,12 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!txtTitle.getText().toString().isEmpty()) {
+
                     if (isChecked) {
                         btnDeleteUser.setEnabled(false);
                         txtTitle.setEnabled(true);
                     } else {
+                        Toast.makeText(AddUserActivity.this, "Entrou", Toast.LENGTH_LONG).show();
                         btnDeleteUser.setEnabled(true);
                         txtTitle.setEnabled(false);
                     }

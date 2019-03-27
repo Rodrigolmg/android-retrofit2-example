@@ -39,15 +39,17 @@ public class UserPostAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = act.getLayoutInflater()
                 .inflate(R.layout.listview_item_userpost, parent, false);
-        UserPost userPost = listUsersPost.get(position);
+        UserPost userPost = (UserPost) getItem(position);
 
-        TextView txtUserId = view.findViewById(R.id.userId);
-        TextView txtId = view.findViewById(R.id.id);
-        TextView txtTitle = view.findViewById(R.id.titlePost);
+        TextView lblUserId = view.findViewById(R.id.userId);
+        TextView lblId = view.findViewById(R.id.id);
+        TextView lblTitle = view.findViewById(R.id.titlePost);
+        TextView lblBody = view.findViewById(R.id.body);
 
-        txtUserId.setText(String.valueOf(userPost.getUserId()));
-        txtId.setText(String.valueOf(userPost.getId()));
-        txtTitle.setText(userPost.getTitle());
+        lblUserId.setText(String.valueOf(userPost.getUserId()));
+        lblId.setText(String.valueOf(userPost.getId()));
+        lblTitle.setText(userPost.getTitle());
+        lblTitle.setText(userPost.getBody());
 
 
         return view;
